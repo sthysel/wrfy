@@ -21,7 +21,5 @@ class Container:
 
     @classmethod
     def all(cls, cli, **kwargs):
-        "construct an Image for all images"
-        return [
-            Container(cli, i['Id'])
-            for i in cli.containers(**kwargs)]
+        """construct an Image for all images"""
+        return (Container(cli, i['Id']) for i in cli.containers(**kwargs))

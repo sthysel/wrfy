@@ -27,7 +27,8 @@ class Volume:
 
     @classmethod
     def all(cls, cli, **kwargs):
-        "construct an Image for all images"
+        """construct an Image for all images"""
+
         response = cli.volumes(**kwargs)
         volumes = response['Volumes'] or []
         return [Volume(cli, i['Name']) for i in volumes]

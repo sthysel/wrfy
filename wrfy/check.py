@@ -32,7 +32,7 @@ def check_latest_image(cli):
         running_image_id = container.get('Image')
         current_image_id = current_image.get('Id')
         if running_image_id != current_image_id:
-            issues.append('running container %s: launched from outdated version of tag' % (container))
+            issues.append('running container {}: launched from outdated version of tag'.format(container))
     return issues
 
 
@@ -40,14 +40,14 @@ def check_untagged_images(cli):
     issues = []
     for image, used_by in untagged_images_with_usage(cli):
         if used_by is None:
-            issues.append('image %s: dangling' % (image))
+            issues.append('image {}: dangling'.format(image))
     return issues
 
 
 def check_dangling_volumes(cli):
     issues = []
     for volume in dangling_volumes(cli):
-        issues.append('volumes %s: dangling' % (volume))
+        issues.append('volumes {}: dangling'.format(volume))
     return issues
 
 
@@ -55,5 +55,5 @@ def check_stopped_containers(cli):
     issues = []
     stopped_count = len(list(stopped_containers(cli)))
     if stopped_count > 0:
-        issues.append('%d stopped containers - possibly unneeded' % (stopped_count))
+        issues.append('{} stopped containers - possibly unneeded'.format(stopped_count))
     return issues
