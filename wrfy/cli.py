@@ -16,7 +16,6 @@ class Config:
         self.verbose = False
         self.force = False
 
-
 pass_config = click.make_pass_decorator(Config, ensure=True)
 
 
@@ -109,12 +108,14 @@ def match_iterator_glob_or_regexp(args, iterator, apply_fn):
 
 
 @image.command('rm_matching')
-@click.argument('--tag', help='Tag pattern')
-@click.argument('--regex', is_flag=True, help='Use regular expression in stead of glob')
+@click.argument('tag')
+@click.option('--regex', is_flag=True, help='Use regular expression in stead of glob')
 @pass_config
 def rmi_matching(config, tag, regex):
     """remove images which have tags matching `pattern`"""
 
+    config.regex = regex
+    config.pattern = tag
     cli = Client()
 
     def all_image_tags():
